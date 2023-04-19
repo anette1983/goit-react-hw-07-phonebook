@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import StyledForm from './ContactForm.styled';
 import StyledButton from 'components/Button.styled';
 import { getContacts } from 'redux/selectors';
@@ -11,7 +11,8 @@ const ContactForm = () => {
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
 
-  const contacts = useSelector(getContacts);
+  const { items } = useSelector(getContacts);
+  console.log('contacts :>> ', items);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -25,7 +26,7 @@ const ContactForm = () => {
       number,
     };
     const normalizedName = newContact.name.toLowerCase();
-    const contactsIncludes = contacts.find(
+    const contactsIncludes = items.find(
       contact =>
         contact.name.toLowerCase() === normalizedName ||
         contact.number === newContact.number
