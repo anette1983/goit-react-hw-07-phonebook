@@ -4,14 +4,14 @@ import { toast } from 'react-toastify';
 import { addContact } from 'redux/operations';
 import StyledForm from './ContactForm.styled';
 import StyledButton from 'components/Button.styled';
-import { getContacts } from 'redux/selectors';
+import {selectContacts } from 'redux/selectors';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
 
-  const { items } = useSelector(getContacts);
+  const { items } = useSelector(selectContacts);
   console.log('contacts :>> ', items);
 
   const handleChange = e => {

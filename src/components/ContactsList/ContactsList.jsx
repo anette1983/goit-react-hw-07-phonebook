@@ -1,17 +1,27 @@
 import { memo, useEffect } from 'react';
 // import ContactstItem from 'components/ContactsItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 // import { deleteContact } from 'redux/contactsSlice';
 import StyledList from './ContactsList.styled';
 import StyledItem from 'components/ContactsItem/ContactsItem.styled';
 import StyledButton from 'components/Button.styled';
-import { getContacts, getFilter } from 'redux/selectors';
+import {
+  selectContacts,
+  selectError,
+  selectFilter,
+  // selectFilteredContacts,
+  selectIsLoading,
+} from 'redux/selectors';
 import { fetchContacts, deleteContact } from 'redux/operations';
 
 function ContactsList() {
-  const { items, isLoading, error } = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const { items } = useSelector(selectContacts);
+  console.log('items :>> ', items);
+  //  const { items, isLoading, error } = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,6 +36,8 @@ function ContactsList() {
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   }
+
+  // const filtered = selectFilteredContacts(items, filter);
 
   const handleDelete = id => {
     dispatch(deleteContact(id));
