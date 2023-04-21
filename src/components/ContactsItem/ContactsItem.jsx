@@ -1,29 +1,34 @@
 import { useDispatch } from 'react-redux';
-// import { deleteContact } from 'redux/contactsSlice';
+
 import { deleteContact } from 'redux/operations';
 import StyledItem from './ContactsItem.styled';
 import StyledButton from 'components/Button.styled';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 function ContactsItem({ contact }) {
+  const [delId, setDelId] = useState();
   const dispatch = useDispatch();
 
   const handleDelete = id => {
+    setDelId(id);
     dispatch(deleteContact(id));
+    return toast.success(`Contact deleted successfully`);
   };
-
-  const { name, number, id } = contact;
 
   return (
     <StyledItem>
-      <span>{name}:</span>
-      <span>{number}</span>
-      <StyledButton type="button" onClick={() => handleDelete(id)}>
-        Delete
+      <span>{contact.name}:</span>
+      <span>{contact.phone}</span>
+      <StyledButton
+        type="button"
+        onClick={() => handleDelete(contact.id)}
+        disabled={delId === contact.id}
+      >
+        {delId === contact.id ? 'Deleting...' : 'Delete'}
       </StyledButton>
     </StyledItem>
   );
 }
-
-// Або перенести айтем назад у ліст
 
 export default ContactsItem;

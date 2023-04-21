@@ -5,7 +5,6 @@ import { selectFilter } from 'redux/selectors';
 
 const Filter = () => {
   const filter = useSelector(selectFilter);
-  // const filter = useSelector(selectFilter) || '';
   const dispatch = useDispatch();
 
   const handleFilterChange = event => {

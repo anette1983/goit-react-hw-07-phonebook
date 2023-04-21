@@ -12,7 +12,6 @@ const ContactForm = () => {
   const dispatch = useDispatch();
 
   const { items } = useSelector(selectContacts);
-  console.log('contacts :>> ', items);
 
   const handleChange = e => {
     const { name, value } = e.target;
